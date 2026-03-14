@@ -1,0 +1,40 @@
+### 解题思路
+
+此处撰写解题思路
+![image.png](https://pic.leetcode.cn/1621218852-NVhvOm-image.png)
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String intToRoman(int num) {
+
+        int[] money = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+       
+        String []str ={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+
+        StringBuffer sbff =new StringBuffer();
+        int i = 0;
+        while(num!=0){
+
+            if(num >= money[i]){
+                sbff.append(str[i]);
+                num -=money[i];
+                
+            }else{
+                i++;
+            }
+
+            
+            
+
+        }
+
+
+        return sbff.toString();
+    }
+}
+```
+

@@ -1,0 +1,105 @@
+### 解题思路
+
+暴力分类，最多有两个数是相同符号，特判全是0时，0的个数超过三个时。
+菜鸡暴力直接撸
+
+### 代码
+
+* cpp
+
+```cpp
+class Solution {
+public:
+    int flagf[1000001],flagz[1000001];
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        vector<vector<int>>ans;
+        vector<int>t(3);
+        vector<int>zheng;
+        vector<int>fu;
+        int zero=0,i,j,n=nums.size();
+        sort(nums.begin(),nums.end());
+        if(n>=3&&nums[0]==0&&nums[0]==nums[n-1]){
+            t[0]=0;
+            t[1]=0;
+            t[2]=0;
+            ans.push_back(t);
+            return ans;
+        }
+        for(i=0;i<n;i++){
+            if(nums[i]<0){
+                fu.push_back(nums[i]);
+                ++flagf[abs(nums[i])];
+            }   
+            else if(nums[i]==0) zero++;
+            else{
+                zheng.push_back(nums[i]);
+                ++flagz[nums[i]];
+            }
+        }
+        //三个元素最多两个为相同符号
+        //两个正
+        for(i=0;i<zheng.size();i++){
+            for(j=i+1;j<zheng.size();j++){
+                int x=zheng[i]+zheng[j];
+                if(flagf[abs(x)]){
+                    t[0]=zheng[i];
+                    t[1]=zheng[j];
+                    t[2]=-(zheng[i]+zheng[j]);
+                    //--flagf[abs(x)];
+                    ans.push_back(t);
+                }
+                
+            }
+        }
+        //两个负
+        for(i=0;i<fu.size();i++){
+            for(j=i+1;j<fu.size();j++){
+                int x=fu[i]+fu[j];
+                if(flagz[abs(x)]){
+                    t[0]=fu[i];
+                    t[1]=fu[j];
+                    t[2]=-(fu[i]+fu[j]);
+                    //--flagz[abs(x)];
+                    ans.push_back(t);
+                    
+                }
+            }
+        }
+        //3以上个0
+        if(zero>=3){
+            t[0]=0;
+            t[1]=0;
+            t[2]=0;
+            ans.push_back(t);
+        }
+        //一正一负一0
+        for(i=0;i<zheng.size();i++){
+            if(!zero)   break;
+            if(zero&&flagf[zheng[i]]){
+                t[0]=zheng[i];
+                t[1]=0;
+                t[2]=-zheng[i];
+                //--flagf[zheng[i]];
+                //--zero;
+                ans.push_back(t);
+            }
+        }
+        
+        set<vector<int>> qu;//set去重
+        for(i=0;i<ans.size();i++){
+            t[0]=ans[i][0];
+            t[1]=ans[i][1];
+            t[2]=ans[i][2];
+            qu.insert(t);
+        }
+        ans.clear();
+        set<vector<int>>::iterator it;
+        for(it=qu.begin();it!=qu.end();it++){
+            ans.push_back(*it);
+        }
+        return ans;
+    }
+};
+```
+
