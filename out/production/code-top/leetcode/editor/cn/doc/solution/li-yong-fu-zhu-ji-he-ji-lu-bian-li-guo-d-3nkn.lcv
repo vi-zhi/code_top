@@ -1,0 +1,37 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* java
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        //使用辅助数组记录遍历过的节点
+        List<ListNode> nodeList = new ArrayList();
+        while(head!=null){
+            if(nodeList.contains(head)){
+               // System.out.print(head.val);
+                 return true;
+            }
+            nodeList.add(head);
+            head = head.next;        
+        }
+        return false;
+    }
+}
+```
+
