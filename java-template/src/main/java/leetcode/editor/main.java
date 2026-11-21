@@ -2,6 +2,7 @@ package leetcode.editor;
 
 import leetcode.editor.cn.LRUCache;
 import leetcode.editor.cn.Solution;
+import leetcode.editor.common.ListNode;
 
 /**
  * @author vizhi
@@ -10,16 +11,23 @@ import leetcode.editor.cn.Solution;
  */
 public class main {
     public static void main(String[] args) {
-        LRUCache lruCache = new LRUCache(2);
-        lruCache.put(1,1);
-        lruCache.put(2,2);
-        lruCache.get(1);
-        lruCache.put(3,3);
-        lruCache.get(2);
-        lruCache.put(4,4);
-        lruCache.get(1);
-        lruCache.get(3);
-        lruCache.get(4);
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(4);
+        ListNode n5 = new ListNode(5);
+
+// 串起来：1 -> 2 -> 3 -> 4 -> 5
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+
+// head 就是第一个数据节点
+        ListNode head = n1;
+
+        Solution solution = new Solution();
+        ListNode ans = solution.reverseKGroup(head,2);
 
 
 
