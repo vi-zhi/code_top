@@ -25,11 +25,11 @@ public class Solution {
         int flag = 0;
         int count = 0;
 
-        while(true) {
+        while (true) {
 
-            for(int i = k; i>0; i--) {
+            for (int i = k; i > 0; i--) {
 
-                if(head == null ){
+                if (head == null) {
                     flag = 1;
                     break;
                 }
@@ -38,29 +38,42 @@ public class Solution {
 
 
                 stack.push(tem);
-                if(head == null && i != 1){
+                if (head == null && i != 1) {
                     flag = 1;
                     break;
                 }
             }
 
-            if(flag == 1){
-                while(!stack.isEmpty()) {
+            if (flag == 1) {
+                while (!stack.isEmpty()) {
                     p.next = stack.pollLast();
                     p = p.next;
                 }
                 break;
             }
 
-           while(!stack.isEmpty()) {
-               p.next = stack.pop();
-               p  = p.next;
-           }
+            while (!stack.isEmpty()) {
+                p.next = stack.pop();
+                p = p.next;
+            }
 
         }
         return newHead.next;
     }
 
+    public int maxSubArray(int[] nums) {
+        int[] dp = new int[nums.length + 1];
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (dp[i - 1] < 0) {
+                dp[i] = nums[i - 1];
+            } else {
+                dp[i] = dp[i - 1] + nums[i-1 ];
+            }
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
 
 
 }
