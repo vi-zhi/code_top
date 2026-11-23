@@ -10,11 +10,21 @@ import leetcode.editor.common.ListNode;
  * @create 2026-11-19 16:22
  */
 public class main {
-    public static void main(String[] args) {
-       Solution s = new Solution();
-        int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        System.out.println(s.maxSubArray(nums));
+    public static void main(String[] args) throws InterruptedException {
+        MessageQueue messageQueue = new MessageQueue(2);
 
+        new Thread(() -> {
+            while(true) {
+                Message message = messageQueue.get();
+            }
+        },"get").start();
+        Thread.sleep(1000);
+        for(int i = 0 ;i < 3; i++) {
+            int id = i;
+            new Thread(() -> {
+                messageQueue.put(new Message(id, "val" + id));
+            },"put").start();
+        }
 
     }
 }
